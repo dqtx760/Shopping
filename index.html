@@ -1,0 +1,484 @@
+<!DOCTYPE html>
+<html lang="zh-CN" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>数字工坊 | 专业数字服务矩阵</title>
+    <!-- Tailwind CSS 3.4.1 -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Font Awesome 6.4.0 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        page: '#F8F6F5',
+                        ink: '#010101',
+                    },
+                    animation: {
+                        'fade-in-up': 'fadeInUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards',
+                    },
+                    keyframes: {
+                        fadeInUp: {
+                            '0%': { opacity: '0', transform: 'translateY(20px)' },
+                            '100%': { opacity: '1', transform: 'translateY(0)' }
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Noto+Sans+SC:wght@400;500;700&display=swap');
+
+        html { overflow-y: scroll; }
+
+        body {
+            font-family: 'Inter', 'Noto Sans SC', sans-serif;
+            -webkit-font-smoothing: antialiased;
+            background-color: #F8F6F5;
+            color: #010101;
+        }
+
+        .bg-gradient-custom { background: linear-gradient(135deg, #F69AAC 0%, #DF95E3 50%, #7DBDE9 100%); }
+        .text-gradient-custom {
+            background: linear-gradient(90deg, #F69AAC 0%, #DF95E3 50%, #7DBDE9 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .btn-gradient {
+            background: linear-gradient(90deg, #F69AAC 0%, #DF95E3 50%, #7DBDE9 100%);
+            color: white;
+            border: none;
+            transition: all 0.3s ease;
+        }
+        .btn-gradient:hover {
+            opacity: 0.9;
+            transform: scale(1.05);
+            box-shadow: 0 4px 15px rgba(223, 149, 227, 0.4);
+        }
+
+        .bento-card {
+            background-color: white;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            border: 1px solid rgba(0,0,0,0.03);
+            box-shadow: 0 2px 5px rgba(0,0,0,0.02);
+        }
+        .bento-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 15px 30px -5px rgba(0,0,0,0.08);
+        }
+
+        .cat-btn {
+            font-weight: 700;
+            color: #9ca3af;
+            transition-property: color, background-color;
+            transition-duration: 200ms;
+        }
+        .cat-btn.active {
+            background-color: #F8F6F5;
+            color: #010101;
+        }
+
+        .no-scrollbar::-webkit-scrollbar { display: none; }
+        .card-enter { animation: fadeIn 0.4s ease forwards; }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: scale(0.98); }
+            to { opacity: 1; transform: scale(1); }
+        }
+
+        .modal { transition: opacity 0.3s, visibility 0.3s; opacity: 0; visibility: hidden; }
+        .modal.active { opacity: 1; visibility: visible; }
+        
+        @property --neon-angle {
+            syntax: '<angle>';
+            inherits: false;
+            initial-value: 0deg;
+        }
+        .neon-backdrop {
+            background:
+                radial-gradient(900px 500px at 50% 25%, rgba(255, 105, 198, 0.12), rgba(0, 0, 0, 0) 60%),
+                radial-gradient(900px 500px at 35% 70%, rgba(181, 107, 255, 0.12), rgba(0, 0, 0, 0) 62%),
+                radial-gradient(900px 500px at 70% 75%, rgba(77, 199, 255, 0.12), rgba(0, 0, 0, 0) 62%),
+                rgba(0, 0, 0, 0.72);
+            backdrop-filter: blur(14px) saturate(120%);
+            -webkit-backdrop-filter: blur(14px) saturate(120%);
+        }
+        .neon-modal {
+            position: relative;
+            border-radius: 28px;
+            background: linear-gradient(145deg, rgba(255, 255, 255, 0.11), rgba(255, 255, 255, 0.04));
+            border: 1px solid rgba(255, 255, 255, 0.18);
+            backdrop-filter: blur(18px) saturate(140%);
+            -webkit-backdrop-filter: blur(18px) saturate(140%);
+            overflow: hidden;
+            box-shadow: 0 18px 60px rgba(0, 0, 0, 0.65);
+            animation: neonAngle 7s linear infinite, neonFlicker 3.2s ease-in-out infinite;
+        }
+        .neon-modal::before {
+            content: "";
+            position: absolute;
+            inset: -2px;
+            border-radius: inherit;
+            padding: 2px;
+            background: conic-gradient(from var(--neon-angle), #ff69c6, #b56bff, #4dc7ff, #ff69c6);
+            -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+            -webkit-mask-composite: xor;
+            mask-composite: exclude;
+            filter: blur(0.2px);
+            opacity: 0.95;
+            pointer-events: none;
+        }
+        @keyframes neonAngle { to { --neon-angle: 360deg; } }
+        @keyframes neonFlicker {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.95; }
+        }
+        .neon-text-shadow {
+            text-shadow: 0 0 12px rgba(255, 105, 198, 0.35);
+        }
+        .neon-title {
+            background: linear-gradient(90deg, #ff69c6 0%, #b56bff 50%, #4dc7ff 100%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .neon-subtext { color: rgba(255, 255, 255, 0.78); }
+        .neon-btn {
+            position: relative;
+            background: rgba(255, 255, 255, 0.06);
+            border: 1px solid rgba(255, 255, 255, 0.18);
+            color: rgba(255, 255, 255, 0.88);
+        }
+        .crystal-frame {
+            position: relative;
+            border-radius: 18px;
+            padding: 10px;
+            background: rgba(255, 255, 255, 0.06);
+            border: 1px solid rgba(255, 255, 255, 0.16);
+        }
+
+        .sticky-sidebar { position: sticky; top: 6rem; }
+    </style>
+</head>
+<body class="flex flex-col min-h-screen">
+
+    <!-- 顶部导航 -->
+    <nav class="fixed top-0 w-full z-50 border-b border-gray-200/50 backdrop-blur-xl bg-[#F8F6F5]/90">
+        <div class="max-w-7xl mx-auto px-6 h-16 flex justify-between items-center">
+            <div class="flex items-center space-x-3 ml-16">
+                <div class="w-8 h-8 bg-gradient-custom rounded-lg flex items-center justify-center text-white shadow-lg">
+                    <i class="fa-solid fa-cube text-sm"></i>
+                </div>
+                <span class="font-bold text-lg tracking-tight text-[#010101]">DIGITAL STUDIO</span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- 主体内容 -->
+    <main class="max-w-7xl mx-auto px-6 pt-24 pb-32 flex-grow">
+        
+        <div class="flex flex-col lg:flex-row gap-8 items-start">
+            
+            <!-- 左侧侧边栏 -->
+            <aside class="lg:w-64 flex-shrink-0 animate-fade-in-up sticky-sidebar z-40" style="animation-delay: 0.1s;">
+                <div class="bg-white p-4 rounded-2xl border border-gray-100 shadow-sm">
+                    <div class="space-y-1">
+                        <button onclick="filterItems('all')" class="cat-btn active w-full flex items-center px-4 py-3 rounded-xl hover:bg-gray-50">
+                            <i class="fa-solid fa-grid-2 mr-3 w-5 text-center"></i>全部项目
+                        </button>
+                        <button onclick="filterItems('web')" class="cat-btn w-full flex items-center px-4 py-3 rounded-xl hover:bg-gray-50">
+                            <i class="fa-solid fa-globe mr-3 w-5 text-center"></i>网站搭建
+                        </button>
+                        <button onclick="filterItems('soft')" class="cat-btn w-full flex items-center px-4 py-3 rounded-xl hover:bg-gray-50">
+                            <i class="fa-solid fa-terminal mr-3 w-5 text-center"></i>软件激活
+                        </button>
+                        <button onclick="filterItems('os')" class="cat-btn w-full flex items-center px-4 py-3 rounded-xl hover:bg-gray-50">
+                            <i class="fa-brands fa-windows mr-3 w-5 text-center"></i>重装系统
+                        </button>
+                        <button onclick="filterItems('apple')" class="cat-btn w-full flex items-center px-4 py-3 rounded-xl hover:bg-gray-50">
+                            <i class="fa-brands fa-apple mr-3 w-5 text-center"></i>苹果业务
+                        </button>
+                        <button onclick="filterItems('ai')" class="cat-btn w-full flex items-center px-4 py-3 rounded-xl hover:bg-gray-50">
+                            <i class="fa-solid fa-robot mr-3 w-5 text-center"></i>AI定制
+                        </button>
+                    </div>
+
+                    <!-- 底部组件 -->
+                    <div class="mt-6 pt-6 border-t border-gray-100 space-y-4">
+                        <div class="flex items-center px-2">
+                            <span class="text-sm font-bold text-gray-500 mr-2">客服</span>
+                            <button id="wx-icon-trigger" class="text-green-500 text-xl hover:scale-110 transition-transform cursor-pointer">
+                                <i class="fa-brands fa-weixin"></i>
+                            </button>
+                        </div>
+                        <div class="flex items-center px-2">
+                            <span class="text-sm font-bold text-gray-500 mr-2">远程下载:</span>
+                            <a href="https://www.742112.xyz/" target="_blank" class="text-sm font-bold text-gradient-custom">Rustdesk</a>
+                        </div>
+                    </div>
+                </div>
+            </aside>
+
+            <!-- 右侧网格 -->
+            <section class="flex-grow w-full animate-fade-in-up" style="animation-delay: 0.2s;">
+                <div id="product-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    
+                    <!-- 网站搭建 -->
+                    <div class="product-item web bento-card p-6 rounded-3xl flex flex-col h-full">
+                        <div class="w-10 h-10 rounded-xl bg-blue-500/10 flex items-center justify-center text-blue-500 mb-6"><i class="fa-solid fa-cloud-arrow-up"></i></div>
+                        <h3 class="text-lg font-bold mb-2">雨云服务器/域名</h3>
+                        <p class="text-gray-500 text-xs leading-relaxed mb-6 flex-grow">高性价比云服务器代下单与实名指导。</p>
+                        <div class="flex items-center justify-between pt-4 border-t border-gray-100"><span class="font-bold text-lg">¥10+</span><a href="https://www.rainyun.com/NzYxMDg2_" target="_blank" class="px-5 py-2 btn-gradient text-xs font-bold rounded-full">立即下单</a></div>
+                    </div>
+                    <div class="product-item web bento-card p-6 rounded-3xl flex flex-col h-full">
+                        <div class="w-10 h-10 rounded-xl bg-blue-500/10 flex items-center justify-center text-blue-500 mb-6"><i class="fa-brands fa-github"></i></div>
+                        <h3 class="text-lg font-bold mb-2">GitHub代码部署问题</h3>
+                        <p class="text-gray-500 text-xs leading-relaxed mb-6 flex-grow">项目自动化部署与环境报错深度修复。</p>
+                        <div class="flex items-center justify-between pt-4 border-t border-gray-100"><span class="font-bold text-lg">¥36.8</span><a href="https://www.742112.xyz/" target="_blank" class="px-5 py-2 btn-gradient text-xs font-bold rounded-full">立即咨询</a></div>
+                    </div>
+                    <div class="product-item web bento-card p-6 rounded-3xl flex flex-col h-full">
+                        <div class="w-10 h-10 rounded-xl bg-blue-500/10 flex items-center justify-center text-blue-500 mb-6"><i class="fa-solid fa-list-check"></i></div>
+                        <h3 class="text-lg font-bold mb-2">OpenList部署</h3>
+                        <p class="text-gray-500 text-xs leading-relaxed mb-6 flex-grow">清单管理系统本地及云端环境一键搭建。</p>
+                        <div class="flex items-center justify-between pt-4 border-t border-gray-100"><span class="font-bold text-lg">¥36.8</span><a href="https://www.742112.xyz/" target="_blank" class="px-5 py-2 btn-gradient text-xs font-bold rounded-full">立即咨询</a></div>
+                    </div>
+                    <div class="product-item web bento-card p-6 rounded-3xl flex flex-col h-full">
+                        <div class="w-10 h-10 rounded-xl bg-blue-500/10 flex items-center justify-center text-blue-500 mb-6"><i class="fa-solid fa-gears"></i></div>
+                        <h3 class="text-lg font-bold mb-2">RustDesk编译</h3>
+                        <p class="text-gray-500 text-xs leading-relaxed mb-6 flex-grow">定制远程桌面客户端编译与中继搭建。</p>
+                        <div class="flex items-center justify-between pt-4 border-t border-gray-100"><span class="font-bold text-lg">¥36.8</span><a href="https://www.742112.xyz/" target="_blank" class="px-5 py-2 btn-gradient text-xs font-bold rounded-full">立即咨询</a></div>
+                    </div>
+                    <div class="product-item web bento-card p-6 rounded-3xl flex flex-col h-full">
+                        <div class="w-10 h-10 rounded-xl bg-blue-500/10 flex items-center justify-center text-blue-500 mb-6"><i class="fa-solid fa-network-wired"></i></div>
+                        <h3 class="text-lg font-bold mb-2">家庭旁路由配置</h3>
+                        <p class="text-gray-500 text-xs leading-relaxed mb-6 flex-grow">OpenWrt/iStoreOS 旁路网关流量优化。</p>
+                        <div class="flex items-center justify-between pt-4 border-t border-gray-100"><span class="font-bold text-lg">¥36.8</span><a href="https://www.742112.xyz/" target="_blank" class="px-5 py-2 btn-gradient text-xs font-bold rounded-full">立即咨询</a></div>
+                    </div>
+                    <div class="product-item web bento-card p-6 rounded-3xl flex flex-col h-full">
+                        <div class="w-10 h-10 rounded-xl bg-blue-500/10 flex items-center justify-center text-blue-500 mb-6"><i class="fa-solid fa-code"></i></div>
+                        <h3 class="text-lg font-bold mb-2">前端html优化部署</h3>
+                        <p class="text-gray-500 text-xs leading-relaxed mb-6 flex-grow">网页代码压缩、SEO增强及极速发布。</p>
+                        <div class="flex items-center justify-between pt-4 border-t border-gray-100"><span class="font-bold text-lg">¥36.8</span><a href="https://www.742112.xyz/" target="_blank" class="px-5 py-2 btn-gradient text-xs font-bold rounded-full">立即咨询</a></div>
+                    </div>
+
+                    <!-- 软件激活 -->
+                    <div class="product-item soft bento-card p-6 rounded-3xl flex flex-col h-full">
+                        <div class="w-10 h-10 rounded-xl bg-emerald-500/10 flex items-center justify-center text-emerald-500 mb-6"><i class="fa-brands fa-adobe"></i></div>
+                        <h3 class="text-lg font-bold mb-2">Adobe 全家桶</h3>
+                        <p class="text-gray-500 text-xs leading-relaxed mb-6 flex-grow">PS/PR/AE/AI 等全系软件永久激活安装。</p>
+                        <div class="flex items-center justify-between pt-4 border-t border-gray-100"><span class="font-bold text-lg">¥30</span><a href="https://www.742112.xyz/" target="_blank" class="px-5 py-2 btn-gradient text-xs font-bold rounded-full">立即下单</a></div>
+                    </div>
+                    <div class="product-item soft bento-card p-6 rounded-3xl flex flex-col h-full">
+                        <div class="w-10 h-10 rounded-xl bg-emerald-500/10 flex items-center justify-center text-emerald-500 mb-6"><i class="fa-solid fa-file-word"></i></div>
+                        <h3 class="text-lg font-bold mb-2">Office安装</h3>
+                        <p class="text-gray-500 text-xs leading-relaxed mb-6 flex-grow">Office 2021/365 版本纯净安装激活。</p>
+                        <div class="flex items-center justify-between pt-4 border-t border-gray-100"><span class="font-bold text-lg">¥26.8</span><a href="https://www.742112.xyz/" target="_blank" class="px-5 py-2 btn-gradient text-xs font-bold rounded-full">立即下单</a></div>
+                    </div>
+                    <div class="product-item soft bento-card p-6 rounded-3xl flex flex-col h-full">
+                        <div class="w-10 h-10 rounded-xl bg-emerald-500/10 flex items-center justify-center text-emerald-500 mb-6"><i class="fa-solid fa-download"></i></div>
+                        <h3 class="text-lg font-bold mb-2">IDM</h3>
+                        <p class="text-gray-500 text-xs leading-relaxed mb-6 flex-grow">极速多线程下载利器，完美对接浏览器。</p>
+                        <div class="flex items-center justify-between pt-4 border-t border-gray-100"><span class="font-bold text-lg">¥59</span><a href="https://lizhi.shop/products/internet-download-manager?cid=wbm93g4b" target="_blank" class="px-5 py-2 btn-gradient text-xs font-bold rounded-full">立即下单</a></div>
+                    </div>
+                    <div class="product-item soft bento-card p-6 rounded-3xl flex flex-col h-full">
+                        <div class="w-10 h-10 rounded-xl bg-emerald-500/10 flex items-center justify-center text-emerald-500 mb-6"><i class="fa-solid fa-pen-nib"></i></div>
+                        <h3 class="text-lg font-bold mb-2">Typora</h3>
+                        <p class="text-gray-500 text-xs leading-relaxed mb-6 flex-grow">最美 Markdown 编辑器，即写即看。</p>
+                        <div class="flex items-center justify-between pt-4 border-t border-gray-100"><span class="font-bold text-lg">¥89</span><a href="https://lizhi.shop/products/typora?cid=wbm93g4b" target="_blank" class="px-5 py-2 btn-gradient text-xs font-bold rounded-full">立即下单</a></div>
+                    </div>
+                    <div class="product-item soft bento-card p-6 rounded-3xl flex flex-col h-full">
+                        <div class="w-10 h-10 rounded-xl bg-emerald-500/10 flex items-center justify-center text-emerald-500 mb-6"><i class="fa-solid fa-magnifying-glass"></i></div>
+                        <h3 class="text-lg font-bold mb-2">Listary Pro</h3>
+                        <p class="text-gray-500 text-xs leading-relaxed mb-6 flex-grow">Windows 平台本地文件秒级搜索神器。</p>
+                        <div class="flex items-center justify-between pt-4 border-t border-gray-100"><span class="font-bold text-lg">¥89</span><a href="https://lizhi.shop/products/listary-pro?cid=wbm93g4b" target="_blank" class="px-5 py-2 btn-gradient text-xs font-bold rounded-full">立即下单</a></div>
+                    </div>
+                    <div class="product-item soft bento-card p-6 rounded-3xl flex flex-col h-full">
+                        <div class="w-10 h-10 rounded-xl bg-emerald-500/10 flex items-center justify-center text-emerald-500 mb-6"><i class="fa-solid fa-shop"></i></div>
+                        <h3 class="text-lg font-bold mb-2">闲管家</h3>
+                        <p class="text-gray-500 text-xs leading-relaxed mb-6 flex-grow">多账号电商管理助手，提升运营效率。</p>
+                        <div class="flex items-center justify-between pt-4 border-t border-gray-100"><span class="font-bold text-lg">¥117.3</span><a href="https://kdocs.cn/l/cnNiOhFzqJA8" target="_blank" class="px-5 py-2 btn-gradient text-xs font-bold rounded-full">立即下单</a></div>
+                    </div>
+
+                    <!-- 重装系统 -->
+                    <div class="product-item os bento-card p-6 rounded-3xl flex flex-col h-full">
+                        <div class="w-10 h-10 rounded-xl bg-cyan-500/10 flex items-center justify-center text-cyan-500 mb-6"><i class="fa-brands fa-windows"></i></div>
+                        <h3 class="text-lg font-bold mb-2">纯净系统安装</h3>
+                        <p class="text-gray-500 text-xs leading-relaxed mb-6 flex-grow">原版 Win10/11 安装，无广告无捆绑。</p>
+                        <div class="flex items-center justify-between pt-4 border-t border-gray-100"><span class="font-bold text-lg">¥50+</span><a href="https://www.742112.xyz/" target="_blank" class="px-5 py-2 btn-gradient text-xs font-bold rounded-full">立即预约</a></div>
+                    </div>
+                    <div class="product-item os bento-card p-6 rounded-3xl flex flex-col h-full">
+                        <div class="w-10 h-10 rounded-xl bg-cyan-500/10 flex items-center justify-center text-cyan-500 mb-6"><i class="fa-solid fa-box"></i></div>
+                        <h3 class="text-lg font-bold mb-2">VMware安装镜像</h3>
+                        <p class="text-gray-500 text-xs leading-relaxed mb-6 flex-grow">虚拟机环境搭建与各版本镜像导入优化。</p>
+                        <div class="flex items-center justify-between pt-4 border-t border-gray-100"><span class="font-bold text-lg">¥26.8</span><a href="https://www.742112.xyz/" target="_blank" class="px-5 py-2 btn-gradient text-xs font-bold rounded-full">立即下单</a></div>
+                    </div>
+                    <div class="product-item os bento-card p-6 rounded-3xl flex flex-col h-full">
+                        <div class="w-10 h-10 rounded-xl bg-cyan-500/10 flex items-center justify-center text-cyan-500 mb-6"><i class="fa-solid fa-usb"></i></div>
+                        <h3 class="text-lg font-bold mb-2">制作Winpe U盘</h3>
+                        <p class="text-gray-500 text-xs leading-relaxed mb-6 flex-grow">手把手教你制作最强系统维护工具盘。</p>
+                        <div class="flex items-center justify-between pt-4 border-t border-gray-100"><span class="font-bold text-lg">¥36.8</span><a href="https://www.742112.xyz/" target="_blank" class="px-5 py-2 btn-gradient text-xs font-bold rounded-full">立即咨询</a></div>
+                    </div>
+                    <div class="product-item os bento-card p-6 rounded-3xl flex flex-col h-full">
+                        <div class="w-10 h-10 rounded-xl bg-cyan-500/10 flex items-center justify-center text-cyan-500 mb-6"><i class="fa-solid fa-gauge-high"></i></div>
+                        <h3 class="text-lg font-bold mb-2">系统优化调教</h3>
+                        <p class="text-gray-500 text-xs leading-relaxed mb-6 flex-grow">深度清理多余服务，解决系统卡顿延迟。</p>
+                        <div class="flex items-center justify-between pt-4 border-t border-gray-100"><span class="font-bold text-lg">¥36.8</span><a href="https://www.742112.xyz/" target="_blank" class="px-5 py-2 btn-gradient text-xs font-bold rounded-full">立即优化</a></div>
+                    </div>
+                    <div class="product-item os bento-card p-6 rounded-3xl flex flex-col h-full">
+                        <div class="w-10 h-10 rounded-xl bg-cyan-500/10 flex items-center justify-center text-cyan-500 mb-6"><i class="fa-solid fa-broom"></i></div>
+                        <h3 class="text-lg font-bold mb-2">C盘/流氓软件清理</h3>
+                        <p class="text-gray-500 text-xs leading-relaxed mb-6 flex-grow">彻底卸载流氓软件，释放磁盘系统空间。</p>
+                        <div class="flex items-center justify-between pt-4 border-t border-gray-100"><span class="font-bold text-lg">¥36.8</span><a href="https://www.742112.xyz/" target="_blank" class="px-5 py-2 btn-gradient text-xs font-bold rounded-full">立即清理</a></div>
+                    </div>
+                    <div class="product-item os bento-card p-6 rounded-3xl flex flex-col h-full">
+                        <div class="w-10 h-10 rounded-xl bg-cyan-500/10 flex items-center justify-center text-cyan-500 mb-6"><i class="fa-solid fa-microchip"></i></div>
+                        <h3 class="text-lg font-bold mb-2">驱动疑难问题</h3>
+                        <p class="text-gray-500 text-xs leading-relaxed mb-6 flex-grow">修复驱动缺失导致的蓝屏、无声等故障。</p>
+                        <div class="flex items-center justify-between pt-4 border-t border-gray-100"><span class="font-bold text-lg">¥36.8</span><a href="https://www.742112.xyz/" target="_blank" class="px-5 py-2 btn-gradient text-xs font-bold rounded-full">立即咨询</a></div>
+                    </div>
+
+                    <!-- 苹果业务 -->
+                    <div class="product-item apple bento-card p-6 rounded-3xl flex flex-col h-full">
+                        <div class="w-10 h-10 rounded-xl bg-zinc-500/10 flex items-center justify-center text-zinc-500 mb-6"><i class="fa-brands fa-apple"></i></div>
+                        <h3 class="text-lg font-bold mb-2">美区ID</h3>
+                        <p class="text-gray-500 text-xs leading-relaxed mb-6 flex-grow">纯手工注册美区成品账号，稳定不封号。</p>
+                        <div class="flex items-center justify-between pt-4 border-t border-gray-100"><span class="font-bold text-lg">¥12.8+</span><a href="https://www.742112.xyz/" target="_blank" class="px-5 py-2 btn-gradient text-xs font-bold rounded-full">立即下单</a></div>
+                    </div>
+                    <div class="product-item apple bento-card p-6 rounded-3xl flex flex-col h-full">
+                        <div class="w-10 h-10 rounded-xl bg-zinc-500/10 flex items-center justify-center text-zinc-500 mb-6"><i class="fa-solid fa-unlock-keyhole"></i></div>
+                        <h3 class="text-lg font-bold mb-2">巨魔安装</h3>
+                        <p class="text-gray-500 text-xs leading-relaxed mb-6 flex-grow">TrollStore 越狱级权限安装与配置。</p>
+                        <div class="flex items-center justify-between pt-4 border-t border-gray-100"><span class="font-bold text-lg">¥26.8</span><a href="https://www.742112.xyz/" target="_blank" class="px-5 py-2 btn-gradient text-xs font-bold rounded-full">立即下单</a></div>
+                    </div>
+
+                    <!-- AI定制 -->
+                    <div class="product-item ai bento-card p-6 rounded-3xl flex flex-col h-full">
+                        <div class="w-10 h-10 rounded-xl bg-purple-500/10 flex items-center justify-center text-purple-500 mb-6"><i class="fa-solid fa-brain"></i></div>
+                        <h3 class="text-lg font-bold mb-2">Gemini pro 带过</h3>
+                        <p class="text-gray-500 text-xs leading-relaxed mb-6 flex-grow">谷歌最强模型账号注册与 API 额度获取。</p>
+                        <div class="flex items-center justify-between pt-4 border-t border-gray-100"><span class="font-bold text-lg">¥26.8+</span><a href="https://www.742112.xyz/" target="_blank" class="px-5 py-2 btn-gradient text-xs font-bold rounded-full">立即下单</a></div>
+                    </div>
+                    <div class="product-item ai bento-card p-6 rounded-3xl flex flex-col h-full">
+                        <div class="w-10 h-10 rounded-xl bg-purple-500/10 flex items-center justify-center text-purple-500 mb-6"><i class="fa-solid fa-sparkles"></i></div>
+                        <h3 class="text-lg font-bold mb-2">ChatGPT Plus</h3>
+                        <p class="text-gray-500 text-xs leading-relaxed mb-6 flex-grow">正规代充 GPT-4 订阅，稳定不掉线。</p>
+                        <div class="flex items-center justify-between pt-4 border-t border-gray-100"><span class="font-bold text-lg">¥180</span><a href="https://www.742112.xyz/" target="_blank" class="px-5 py-2 btn-gradient text-xs font-bold rounded-full">立即下单</a></div>
+                    </div>
+                    <div class="product-item ai bento-card p-6 rounded-3xl flex flex-col h-full">
+                        <div class="w-10 h-10 rounded-xl bg-purple-500/10 flex items-center justify-center text-purple-500 mb-6"><i class="fa-solid fa-wand-magic-sparkles"></i></div>
+                        <h3 class="text-lg font-bold mb-2">ComfyUI 部署</h3>
+                        <p class="text-gray-500 text-xs leading-relaxed mb-6 flex-grow">本地/云端一键搭建节点化绘图环境。</p>
+                        <div class="flex items-center justify-between pt-4 border-t border-gray-100"><span class="font-bold text-lg">¥68</span><a href="https://www.742112.xyz/" target="_blank" class="px-5 py-2 btn-gradient text-xs font-bold rounded-full">立即部署</a></div>
+                    </div>
+                    <div class="product-item ai bento-card p-6 rounded-3xl flex flex-col h-full">
+                        <div class="w-10 h-10 rounded-xl bg-purple-500/10 flex items-center justify-center text-purple-500 mb-6"><i class="fa-solid fa-plug"></i></div>
+                        <h3 class="text-lg font-bold mb-2">Cherry Studio API 配置</h3>
+                        <p class="text-gray-500 text-xs leading-relaxed mb-6 flex-grow">全能 AI 端 API 对接与多模型共用设置。</p>
+                        <div class="flex items-center justify-between pt-4 border-t border-gray-100"><span class="font-bold text-lg">¥46.8</span><a href="https://www.742112.xyz/" target="_blank" class="px-5 py-2 btn-gradient text-xs font-bold rounded-full">立即配置</a></div>
+                    </div>
+                    <div class="product-item ai bento-card p-6 rounded-3xl flex flex-col h-full">
+                        <div class="w-10 h-10 rounded-xl bg-purple-500/10 flex items-center justify-center text-purple-500 mb-6"><i class="fa-solid fa-comment-dots"></i></div>
+                        <h3 class="text-lg font-bold mb-2">Prompt 提示词定制</h3>
+                        <p class="text-gray-500 text-xs leading-relaxed mb-6 flex-grow">行业指令设计，精准提升 AI 输出效率。</p>
+                        <div class="flex items-center justify-between pt-4 border-t border-gray-100"><span class="font-bold text-lg">¥36.8</span><a href="https://www.742112.xyz/" target="_blank" class="px-5 py-2 btn-gradient text-xs font-bold rounded-full">立即定制</a></div>
+                    </div>
+                    <div class="product-item ai bento-card p-6 rounded-3xl flex flex-col h-full">
+                        <div class="w-10 h-10 rounded-xl bg-purple-500/10 flex items-center justify-center text-purple-500 mb-6"><i class="fa-solid fa-circle-question"></i></div>
+                        <h3 class="text-lg font-bold mb-2">AI其他问题咨询</h3>
+                        <p class="text-gray-500 text-xs leading-relaxed mb-6 flex-grow">各种模型报错、节点安装及环境解答。</p>
+                        <div class="flex items-center justify-between pt-4 border-t border-gray-100"><span class="font-bold text-lg">¥20+</span><a href="https://www.742112.xyz/" target="_blank" class="px-5 py-2 btn-gradient text-xs font-bold rounded-full">立即咨询</a></div>
+                    </div>
+
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-[#F8F6F5] text-gray-600 border-t border-gray-200 pt-16 pb-20 font-mono transition-colors duration-300">
+        <div class="max-w-7xl mx-auto px-6 grid grid-cols-1 md:grid-cols-3 gap-12">
+            <div class="col-span-1 md:pl-4">
+                <h3 class="text-green-500 font-bold mb-4 tracking-wider text-xl flex items-center"><span class="mr-2">&gt;</span>DigitalFrontier</h3>
+                <p class="text-sm leading-relaxed opacity-80 font-sans text-gray-600">Making dreams come true in digital world.</p>
+            </div>
+            <div class="col-span-1 flex flex-col md:items-center">
+                <h3 class="text-green-500 font-bold mb-4 tracking-wider text-lg"><span class="mr-2">&gt;</span>NAVIGATION</h3>
+                <ul class="space-y-3 text-sm font-sans">
+                    <li><a href="https://www.google.cn/intl/zh-CN/chrome/" target="_blank" class="hover:text-black">Chrome</a></li>
+                    <li><a href="https://op.dqtx.cc/" target="_blank" class="hover:text-black">OpenWrt</a></li>
+                </ul>
+            </div>
+            <div class="col-span-1 flex flex-col md:items-end">
+                <h3 class="text-green-500 font-bold mb-4 tracking-wider text-lg"><span class="mr-2">&gt;</span>CONNECT</h3>
+                <div class="flex gap-6 items-center text-xl">
+                    <a href="https://github.com/dqtx760" target="_blank" class="hover:text-black"><i class="fab fa-github"></i></a>
+                    <a href="#" id="wechat-public-trigger" class="hover:text-green-500"><i class="fab fa-weixin"></i></a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- 黑客风格微信弹窗 -->
+    <div id="custom-wx-modal" class="modal neon-backdrop fixed inset-0 z-[60] flex items-center justify-center p-4 hidden">
+        <div class="modal-content neon-modal w-full max-w-sm p-7 relative flex flex-col items-center">
+            <h3 class="neon-title neon-text-shadow text-2xl font-bold tracking-widest mb-6">博主微信</h3>
+            <div class="crystal-frame mb-6">
+                <img src="https://gitee.com/da-qiang-classmate/typora/raw/master/image/e3877f44-ceca-4ded-86b5-1a0a15c7927b.webp" alt="WeChat QR" class="w-64 h-64 object-cover rounded-xl">
+            </div>
+            <p class="neon-subtext neon-text-shadow font-mono text-sm mb-8 tracking-wider">微信号: <span id="modal-wx-id">dqtx33</span></p>
+            <div class="flex gap-4 w-full">
+                <button onclick="copyModalWx()" class="flex-1 py-2.5 rounded-xl transition-all font-bold text-sm tracking-wide neon-btn">复制微信号</button>
+                <button onclick="closeCustomModal()" class="flex-1 py-2.5 rounded-xl transition-all font-bold text-sm tracking-wide neon-btn">关闭</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function filterItems(type) {
+            const items = document.querySelectorAll('.product-item');
+            const btns = document.querySelectorAll('.cat-btn');
+
+            btns.forEach(btn => btn.classList.remove('active', 'bg-gray-100'));
+            event.currentTarget.classList.add('active', 'bg-gray-100');
+
+            items.forEach(item => {
+                item.classList.remove('card-enter');
+                void item.offsetWidth; 
+                if (type === 'all' || item.classList.contains(type)) {
+                    item.style.display = 'flex';
+                    item.classList.add('card-enter');
+                } else {
+                    item.style.display = 'none';
+                }
+            });
+        }
+
+        function openModal(id) { 
+            const m = document.getElementById(id); 
+            m.classList.remove('hidden'); 
+            requestAnimationFrame(() => m.classList.add('active')); 
+        }
+        function closeModal(id) { 
+            document.getElementById(id).classList.remove('active'); 
+            setTimeout(() => document.getElementById(id).classList.add('hidden'), 300); 
+        }
+
+        document.getElementById('wx-icon-trigger').onclick = () => openModal('custom-wx-modal');
+        function closeCustomModal() { closeModal('custom-wx-modal'); }
+        function copyModalWx() {
+            navigator.clipboard.writeText('dqtx33').then(() => {
+                const btn = event.target;
+                const oldText = btn.innerText;
+                btn.innerText = '复制成功！';
+                setTimeout(() => btn.innerText = oldText, 2000);
+            });
+        }
+        document.getElementById('custom-wx-modal').onclick = function(e) { if(e.target === this) closeCustomModal(); }
+    </script>
+</body>
+</html>
