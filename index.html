@@ -2,7 +2,7 @@
 <html lang="zh-CN" class="scroll-smooth">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>数字工坊 | 专业数字服务矩阵</title>
     <!-- Tailwind CSS 3.4.1 -->
     <script src="https://cdn.tailwindcss.com"></script>
@@ -45,7 +45,6 @@
             -webkit-font-smoothing: antialiased;
             background-color: #F8F6F5;
             color: #010101;
-            -webkit-tap-highlight-color: transparent;
         }
 
         .bg-gradient-custom { background: linear-gradient(135deg, #F69AAC 0%, #DF95E3 50%, #7DBDE9 100%); }
@@ -77,17 +76,6 @@
             transform: translateY(-4px);
             box-shadow: 0 15px 30px -5px rgba(0,0,0,0.08);
         }
-        @media (max-width: 640px) {
-            .bento-card {
-                padding: 1rem;
-            }
-            .bento-card h3 {
-                font-size: 1rem;
-            }
-            .bento-card p {
-                font-size: 0.75rem;
-            }
-        }
 
         .cat-btn {
             font-weight: 600;
@@ -99,12 +87,6 @@
             background-color: #f3f4f6;
             color: #010101;
             font-weight: 700;
-        }
-        @media (max-width: 640px) {
-            .cat-btn {
-                padding: 0.5rem 0.75rem;
-                font-size: 0.875rem;
-            }
         }
 
         .card-enter { animation: cardFadeIn 0.3s ease-out forwards; }
@@ -160,177 +142,258 @@
         
         .sticky-sidebar { position: sticky; top: 6rem; height: fit-content; }
         #product-grid { min-height: 60vh; align-content: start; }
-        
-        /* 移动端侧边栏优化 */
+
+        /* 移动端优化 */
         @media (max-width: 1024px) {
             .sticky-sidebar {
                 position: relative;
                 top: 0;
-                width: 100%;
             }
-        }
-        
-        /* 移动端弹窗优化 */
-        @media (max-width: 640px) {
-            .neon-modal {
-                margin: 1rem;
-                max-height: 90vh;
-                overflow-y: auto;
-            }
-            .neon-modal img {
-                width: 56vw;
-                height: 56vw;
-                max-width: 240px;
-                max-height: 240px;
-            }
-        }
-        
-        /* 移动端悬浮目录按钮 */
-        .mobile-menu-fab {
-            display: none;
-        }
-        @media (max-width: 1024px) {
-            .mobile-menu-fab {
+            #category-list {
                 display: flex;
-                align-items: center;
-                justify-content: center;
-                position: fixed;
-                right: 1rem;
-                top: 1.25rem;
-                width: 32px;
-                height: 32px;
-                border-radius: 8px;
-                background: transparent;
-                box-shadow: none;
-                cursor: pointer;
-                cursor: pointer;
-                z-index: 55;
-                border: none;
-                transition: transform 0.2s ease, box-shadow 0.2s ease;
+                overflow-x: auto;
+                gap: 0.5rem;
+                padding-bottom: 0.5rem;
+                -webkit-overflow-scrolling: touch;
+                scrollbar-width: none;
             }
-            .mobile-menu-fab:active {
-                transform: scale(0.95);
-            }
-            .mobile-menu-fab .menu-lines {
-                display: flex;
-                flex-direction: column;
-                align-items: flex-start;
-                gap: 0;
-            }
-            .mobile-menu-fab .menu-line {
-                display: flex;
-                align-items: center;
-                font-size: 10px;
-                line-height: 1;
-            }
-            .mobile-menu-fab .menu-dot {
-                color: #F69AAC;
-                margin-right: 2px;
-            }
-            .mobile-menu-fab .menu-bar {
-                width: 16px;
-                height: 2px;
-                background: linear-gradient(90deg, #F69AAC, #DF95E3);
-                border-radius: 1px;
-            }
-            #mobile-sidebar {
+            #category-list::-webkit-scrollbar {
                 display: none;
-                margin-bottom: 1rem;
             }
-            #mobile-sidebar.show {
-                display: block;
+            #category-list button {
+                white-space: nowrap;
+                flex-shrink: 0;
+                padding: 0.75rem;
+                min-width: 44px;
+                min-height: 44px;
+                justify-content: center;
+            }
+            #category-list button i {
+                margin-right: 0;
+            }
+            /* 隐藏分类按钮文字 */
+            #category-list button:not(.active) {
+                font-size: 0;
+                color: transparent;
+            }
+            #category-list button.active {
+                padding: 0.75rem 1rem;
+            }
+            #category-list button.active i {
+                margin-right: 0.5rem;
             }
         }
-        @media (min-width: 1024px) {
-            #mobile-sidebar {
-                display: block !important;
-            }
-            .mobile-menu-fab {
-                display: none !important;
-            }
-        }
-        
-        /* 移动端按钮优化 */
+
         @media (max-width: 640px) {
-            .btn-gradient {
-                padding: 0.5rem 1rem;
+            .bento-card {
+                padding: 1rem;
+            }
+            .bento-card h3 {
+                font-size: 0.95rem;
+            }
+            .bento-card p {
                 font-size: 0.75rem;
             }
-            .product-item .flex.items-center.justify-between {
-                flex-direction: column;
-                gap: 0.75rem;
-                align-items: flex-start;
+            .neon-modal {
+                margin: 1rem;
+                max-width: calc(100vw - 2rem);
             }
-            .product-item .flex.items-center.justify-between span {
-                font-size: 1.125rem;
+            .neon-modal img {
+                width: 100%;
+                height: auto;
+                max-width: 200px;
+                max-height: 200px;
             }
         }
-        
+
         /* 触摸优化 */
-        @media (hover: none) {
+        @media (hover: none) and (pointer: coarse) {
             .bento-card:hover {
                 transform: none;
-                box-shadow: 0 2px 5px rgba(0,0,0,0.02);
             }
-            .cat-btn:hover {
-                background-color: transparent;
-            }
-            .cat-btn.active:hover {
-                background-color: #f3f4f6;
+            .cat-btn, .btn-gradient {
+                min-height: 44px;
+                min-width: 44px;
             }
         }
-        
-        /* 防止移动端表单元素默认样式 */
-        input, button, select, textarea {
-            -webkit-appearance: none;
-            appearance: none;
+
+        /* 移动端菜单样式 */
+        .mobile-cat-btn {
+            color: #374151;
+            transition: all 0.2s ease;
         }
-        
-        /* 平滑滚动 */
-        html {
-            scroll-behavior: smooth;
+        .mobile-cat-btn.active {
+            background-color: #f3f4f6;
+            color: #010101;
         }
-        
-        /* 移动端footer优化 */
-        @media (max-width: 768px) {
-            footer .grid > div {
-                text-align: center;
-            }
-            footer h3 {
-                justify-content: center;
-            }
-            footer ul {
-                text-align: center;
-            }
+        .mobile-cat-btn.active i {
+            color: inherit;
+        }
+        #mobile-menu-drawer.active #mobile-menu-overlay {
+            opacity: 1;
+        }
+        #mobile-menu-drawer.active #mobile-menu-content {
+            transform: translateX(0);
+        }
+
+        /* 搜索功能样式 */
+        .search-highlight {
+            background-color: rgba(246, 154, 172, 0.3);
+            padding: 0 2px;
+            border-radius: 2px;
+        }
+        #mobile-search-drawer.active #mobile-search-overlay {
+            opacity: 1;
+        }
+        #mobile-search-drawer.active #mobile-search-content {
+            transform: translateY(0);
+        }
+        .search-result-item {
+            padding: 1rem;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+        .search-result-item:hover {
+            background-color: #f9fafb;
+        }
+        .search-result-item:active {
+            background-color: #f3f4f6;
         }
     </style>
 </head>
 <body class="flex flex-col min-h-screen">
 
     <nav class="fixed top-0 w-full z-50 border-b border-gray-200/50 backdrop-blur-xl bg-[#F8F6F5]/90">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 h-16 flex justify-between items-center">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 h-14 sm:h-16 flex justify-between items-center">
             <div class="flex items-center space-x-3">
                 <div class="w-8 h-8 bg-gradient-custom rounded-lg flex items-center justify-center text-white shadow-lg">
                     <i class="fa-solid fa-cube text-sm"></i>
                 </div>
-                <span class="font-bold text-base sm:text-lg tracking-tight text-[#010101]">DIGITAL STUDIO</span>
+                <span class="font-bold text-lg tracking-tight text-[#010101]">DIGITAL STUDIO</span>
+            </div>
+            <!-- 搜索框 - PC端显示 -->
+            <div class="hidden lg:flex items-center flex-1 max-w-md mx-8">
+                <div class="relative w-full">
+                    <input type="text" id="search-input" placeholder="搜索项目..." 
+                        class="w-full pl-10 pr-4 py-2 rounded-xl border border-gray-200 bg-white/80 focus:bg-white focus:border-pink-300 focus:outline-none focus:ring-2 focus:ring-pink-100 transition-all text-sm">
+                    <i class="fa-solid fa-magnifying-glass absolute left-3.5 top-1/2 -translate-y-1/2 text-gray-400"></i>
+                    <button id="clear-search" class="hidden absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600">
+                        <i class="fa-solid fa-xmark"></i>
+                    </button>
+                </div>
+            </div>
+            <!-- 右侧按钮组 -->
+            <div class="flex items-center gap-1">
+                <!-- 搜索按钮 - 移动端显示 -->
+                <button id="mobile-search-btn" class="lg:hidden w-10 h-10 flex items-center justify-center rounded-xl hover:bg-gray-100 transition-colors" aria-label="搜索">
+                    <i class="fa-solid fa-magnifying-glass text-lg text-gray-700"></i>
+                </button>
+                <!-- 移动端菜单按钮 -->
+                <button id="mobile-menu-btn" class="lg:hidden w-10 h-10 flex items-center justify-center rounded-xl hover:bg-gray-100 transition-colors" aria-label="菜单">
+                    <i class="fa-solid fa-bars text-xl text-gray-700"></i>
+                </button>
             </div>
         </div>
     </nav>
 
-    <!-- 移动端悬浮目录按钮 -->
-    <button id="mobile-menu-fab" class="mobile-menu-fab" onclick="toggleMobileSidebar()" aria-label="展开目录">
-        <div class="menu-lines">
-            <div class="menu-line"><span class="menu-dot">·</span><span class="menu-bar"></span></div>
-            <div class="menu-line"><span class="menu-dot">·</span><span class="menu-bar"></span></div>
-            <div class="menu-line"><span class="menu-dot">·</span><span class="menu-bar"></span></div>
+    <!-- 移动端搜索抽屉 -->
+    <div id="mobile-search-drawer" class="fixed inset-0 z-[56] hidden lg:hidden">
+        <!-- 遮罩层 -->
+        <div id="mobile-search-overlay" class="absolute inset-0 bg-black/50 backdrop-blur-sm transition-opacity opacity-0"></div>
+        <!-- 搜索内容 -->
+        <div id="mobile-search-content" class="absolute top-0 left-0 right-0 bg-white transform -translate-y-full transition-transform duration-300 ease-out">
+            <!-- 搜索头部 -->
+            <div class="flex items-center gap-3 px-4 py-3 border-b border-gray-100">
+                <div class="flex-1 relative">
+                    <input type="text" id="mobile-search-input" placeholder="搜索项目..." 
+                        class="w-full pl-10 pr-10 py-2.5 rounded-xl border border-gray-200 bg-gray-50 focus:bg-white focus:border-pink-300 focus:outline-none focus:ring-2 focus:ring-pink-100 transition-all text-sm">
+                    <i class="fa-solid fa-magnifying-glass absolute left-3.5 top-1/2 -translate-y-1/2 text-gray-400"></i>
+                    <button id="mobile-clear-search" class="hidden absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600 w-6 h-6 flex items-center justify-center">
+                        <i class="fa-solid fa-xmark"></i>
+                    </button>
+                </div>
+                <button id="mobile-search-close" class="text-gray-600 font-medium text-sm px-2">取消</button>
+            </div>
+            <!-- 搜索结果区域 -->
+            <div id="mobile-search-results" class="max-h-[70vh] overflow-y-auto bg-white">
+                <!-- 默认提示 -->
+                <div id="mobile-search-hint" class="p-8 text-center text-gray-400">
+                    <i class="fa-solid fa-magnifying-glass text-3xl mb-3 text-gray-300"></i>
+                    <p class="text-sm">输入关键词搜索项目</p>
+                </div>
+                <!-- 搜索结果列表 -->
+                <div id="mobile-search-list" class="hidden divide-y divide-gray-100"></div>
+                <!-- 无结果提示 -->
+                <div id="mobile-search-empty" class="hidden p-8 text-center text-gray-400">
+                    <i class="fa-regular fa-face-frown text-3xl mb-3 text-gray-300"></i>
+                    <p class="text-sm">未找到相关项目</p>
+                </div>
+            </div>
         </div>
-    </button>
+    </div>
+
+    <!-- 移动端分类菜单抽屉 -->
+    <div id="mobile-menu-drawer" class="fixed inset-0 z-[55] hidden">
+        <!-- 遮罩层 -->
+        <div id="mobile-menu-overlay" class="absolute inset-0 bg-black/50 backdrop-blur-sm transition-opacity opacity-0"></div>
+        <!-- 菜单内容 -->
+        <div id="mobile-menu-content" class="absolute right-0 top-0 h-full w-72 bg-white shadow-2xl transform translate-x-full transition-transform duration-300 ease-out flex flex-col">
+            <!-- 菜单头部 -->
+            <div class="flex items-center justify-between px-5 py-4 border-b border-gray-100">
+                <span class="font-bold text-gray-800">分类导航</span>
+                <button id="mobile-menu-close" class="w-8 h-8 flex items-center justify-center rounded-lg hover:bg-gray-100 transition-colors">
+                    <i class="fa-solid fa-xmark text-xl text-gray-600"></i>
+                </button>
+            </div>
+            <!-- 分类列表 -->
+            <div class="flex-1 overflow-y-auto py-4 px-3">
+                <div class="space-y-1">
+                    <button onclick="filterItemsMobile('all')" class="mobile-cat-btn active w-full flex items-center px-4 py-3 rounded-xl text-left hover:bg-gray-50 transition-colors">
+                        <i class="fa-solid fa-grid-2 mr-3 w-5 text-center text-gray-500"></i>
+                        <span class="font-medium">全部项目</span>
+                    </button>
+                    <button onclick="filterItemsMobile('soft')" class="mobile-cat-btn w-full flex items-center px-4 py-3 rounded-xl text-left hover:bg-gray-50 transition-colors">
+                        <i class="fa-solid fa-terminal mr-3 w-5 text-center text-emerald-500"></i>
+                        <span class="font-medium">软件激活</span>
+                    </button>
+                    <button onclick="filterItemsMobile('os')" class="mobile-cat-btn w-full flex items-center px-4 py-3 rounded-xl text-left hover:bg-gray-50 transition-colors">
+                        <i class="fa-brands fa-windows mr-3 w-5 text-center text-cyan-500"></i>
+                        <span class="font-medium">重装系统</span>
+                    </button>
+                    <button onclick="filterItemsMobile('web')" class="mobile-cat-btn w-full flex items-center px-4 py-3 rounded-xl text-left hover:bg-gray-50 transition-colors">
+                        <i class="fa-solid fa-globe mr-3 w-5 text-center text-blue-500"></i>
+                        <span class="font-medium">网站搭建</span>
+                    </button>
+                    <button onclick="filterItemsMobile('social')" class="mobile-cat-btn w-full flex items-center px-4 py-3 rounded-xl text-left hover:bg-gray-50 transition-colors">
+                        <i class="fa-solid fa-hashtag mr-3 w-5 text-center text-orange-500"></i>
+                        <span class="font-medium">社交账号</span>
+                    </button>
+                    <button onclick="filterItemsMobile('apple')" class="mobile-cat-btn w-full flex items-center px-4 py-3 rounded-xl text-left hover:bg-gray-50 transition-colors">
+                        <i class="fa-brands fa-apple mr-3 w-5 text-center text-zinc-500"></i>
+                        <span class="font-medium">苹果业务</span>
+                    </button>
+                    <button onclick="filterItemsMobile('ai')" class="mobile-cat-btn w-full flex items-center px-4 py-3 rounded-xl text-left hover:bg-gray-50 transition-colors">
+                        <i class="fa-solid fa-robot mr-3 w-5 text-center text-purple-500"></i>
+                        <span class="font-medium">AI定制</span>
+                    </button>
+                </div>
+            </div>
+            <!-- 菜单底部 -->
+            <div class="border-t border-gray-100 p-4">
+                <div class="flex items-center justify-between">
+                    <span class="text-sm text-gray-500">联系客服</span>
+                    <button onclick="openWxFromMenu()" class="w-10 h-10 flex items-center justify-center rounded-full bg-green-50 text-green-500 hover:bg-green-100 transition-colors">
+                        <i class="fa-brands fa-weixin text-lg"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <main class="max-w-7xl mx-auto px-4 sm:px-6 pt-20 sm:pt-24 pb-20 sm:pb-32 flex-grow w-full">
         <div class="flex flex-col lg:flex-row gap-4 sm:gap-8 items-start">
             
-            <aside id="mobile-sidebar" class="w-full lg:w-64 flex-shrink-0 animate-fade-in-up sticky-sidebar z-40" style="animation-delay: 0.1s;">
+            <aside class="w-full lg:w-64 flex-shrink-0 animate-fade-in-up sticky-sidebar z-40" style="animation-delay: 0.1s;">
                 <div class="bg-white p-3 sm:p-4 rounded-2xl border border-gray-100 shadow-sm">
                     <div id="category-list" class="space-y-1">
                         <button onclick="filterItems('all', this)" class="cat-btn active w-full flex items-center px-4 py-3 rounded-xl hover:bg-gray-50">
@@ -356,10 +419,10 @@
                         </button>
                     </div>
 
-                    <div class="mt-6 pt-6 border-t border-gray-100 space-y-4">
+                    <div class="mt-4 sm:mt-6 pt-4 sm:pt-6 border-t border-gray-100 space-y-3 sm:space-y-4">
                         <div class="flex items-center px-2">
                             <span class="text-sm font-bold text-gray-500 mr-2">客服</span>
-                            <button id="wx-icon-trigger" class="text-green-500 text-xl hover:scale-110 transition-transform cursor-pointer">
+                            <button id="wx-icon-trigger" class="text-green-500 text-xl hover:scale-110 transition-transform cursor-pointer" style="min-height: 44px; min-width: 44px; display: flex; align-items: center; justify-content: center;">
                                 <i class="fa-brands fa-weixin"></i>
                             </button>
                         </div>
@@ -371,7 +434,7 @@
                 </div>
             </aside>
 
-            <section class="flex-grow w-full animate-fade-in-up" style="animation-delay: 0.2s;">
+<section class="flex-grow w-full animate-fade-in-up" style="animation-delay: 0.2s;">
                 <div id="product-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
                     
                     <!-- 软件激活项目列表 -->
@@ -583,7 +646,7 @@
         </div>
     </main>
 
-    <footer class="bg-[#F8F6F5] text-gray-600 border-t border-gray-200 pt-12 sm:pt-16 pb-16 sm:pb-20 font-mono">
+    <footer class="bg-[#F8F6F5] text-gray-600 border-t border-gray-200 pt-10 sm:pt-16 pb-16 sm:pb-20 font-mono">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 grid grid-cols-1 md:grid-cols-3 gap-8 sm:gap-12">
             <div class="md:pl-12 text-center md:text-left">
                 <h3 class="text-green-500 font-bold mb-4 tracking-wider text-xl flex items-center justify-center md:justify-start">
@@ -617,29 +680,29 @@
     </footer>
 
     <!-- 黑客风格博主微信弹窗 -->
-    <div id="custom-wx-modal" class="modal neon-backdrop fixed inset-0 z-[60] flex items-center justify-center p-4 hidden">
-        <div class="modal-content neon-modal w-full max-w-sm p-5 sm:p-7 flex flex-col items-center">
-            <h3 class="neon-title text-xl sm:text-2xl font-bold mb-4 sm:mb-6 tracking-widest text-pink-500" style="text-shadow: 0 0 10px rgba(236, 72, 153, 0.5);">博主微信</h3>
-            <div class="relative z-20 mb-4 sm:mb-6 border border-white/20 p-2 rounded-2xl bg-black/20 backdrop-blur-sm">
-                <img src="https://gitee.com/da-qiang-classmate/typora/raw/master/image/e3877f44-ceca-4ded-86b5-1a0a15c7927b.webp" alt="WeChat QR" class="w-48 h-48 sm:w-64 sm:h-64 rounded-xl object-cover">
+    <div id="custom-wx-modal" class="modal neon-backdrop fixed inset-0 z-[60] flex items-center justify-center p-2 sm:p-4 hidden">
+        <div class="modal-content neon-modal w-full max-w-sm p-4 sm:p-7 flex flex-col items-center">
+            <h3 class="neon-title text-2xl font-bold mb-6 tracking-widest text-pink-500" style="text-shadow: 0 0 10px rgba(236, 72, 153, 0.5);">博主微信</h3>
+            <div class="relative z-20 mb-6 border border-white/20 p-2 rounded-2xl bg-black/20 backdrop-blur-sm">
+                <img src="https://gitee.com/da-qiang-classmate/typora/raw/master/image/e3877f44-ceca-4ded-86b5-1a0a15c7927b.webp" alt="WeChat QR" class="w-64 h-64 rounded-xl object-cover">
             </div>
-            <p class="text-white/80 font-mono text-sm mb-6 sm:mb-8 relative z-20">微信号: <span id="modal-wx-id" class="text-pink-400 font-bold">dqtx33</span></p>
-            <div class="flex gap-3 sm:gap-4 w-full relative z-20">
-                <button onclick="copyModalWx(event, this)" class="flex-1 py-2.5 sm:py-3 rounded-xl font-bold text-sm bg-white/10 text-white border border-white/20 hover:bg-white/20 transition-all">复制微信号</button>
-                <button onclick="closeModal('custom-wx-modal')" class="flex-1 py-2.5 sm:py-3 rounded-xl font-bold text-sm bg-white/10 text-white border border-white/20 hover:bg-white/20 transition-all">关闭</button>
+            <p class="text-white/80 font-mono text-sm mb-8 relative z-20">微信号: <span id="modal-wx-id" class="text-pink-400 font-bold">dqtx33</span></p>
+            <div class="flex gap-4 w-full relative z-20">
+                <button onclick="copyModalWx(event, this)" class="flex-1 py-3 rounded-xl font-bold text-sm bg-white/10 text-white border border-white/20 hover:bg-white/20 transition-all">复制微信号</button>
+                <button onclick="closeModal('custom-wx-modal')" class="flex-1 py-3 rounded-xl font-bold text-sm bg-white/10 text-white border border-white/20 hover:bg-white/20 transition-all">关闭</button>
             </div>
         </div>
     </div>
 
     <!-- 打赏弹窗 -->
-    <div id="donation-modal" class="modal fixed inset-0 z-50 bg-black/80 backdrop-blur-md flex items-center justify-center p-4 hidden">
-        <div class="modal-content bg-[#181a1f] border border-gray-700 rounded-xl w-full max-w-xs p-5 sm:p-6 text-center">
-            <h3 class="text-white mb-3 sm:mb-4"><i class="fas fa-heart text-red-500 animate-pulse"></i> 感谢支持</h3>
-            <div class="flex border border-gray-700 rounded-lg mb-3 sm:mb-4 overflow-hidden">
+    <div id="donation-modal" class="modal fixed inset-0 z-50 bg-black/80 backdrop-blur-md flex items-center justify-center p-2 sm:p-4 hidden">
+        <div class="modal-content bg-[#181a1f] border border-gray-700 rounded-xl w-full max-w-xs p-4 sm:p-6 text-center">
+            <h3 class="text-white mb-4"><i class="fas fa-heart text-red-500 animate-pulse"></i> 感谢支持</h3>
+            <div class="flex border border-gray-700 rounded-lg mb-4 overflow-hidden">
                 <button id="wechat-tab" class="flex-1 p-2 text-xs font-bold bg-yellow-500/10 text-yellow-400 border-r border-gray-700">微信</button>
                 <button id="alipay-tab" class="flex-1 p-2 text-xs font-bold text-gray-400 hover:bg-white/5">支付宝</button>
             </div>
-            <div class="bg-white/5 p-2 rounded-lg h-48 sm:h-64 flex items-center justify-center mb-3 sm:mb-4">
+            <div class="bg-white/5 p-2 rounded-lg h-64 flex items-center justify-center mb-4">
                 <img id="qr-code-img" src="https://gitee.com/da-qiang-classmate/typora/raw/master/image/IMG_4874.webp" class="max-h-full rounded object-contain">
             </div>
             <button onclick="closeModal('donation-modal')" class="w-full bg-white/10 text-gray-300 py-2 rounded hover:bg-white/20">关闭</button>
@@ -647,14 +710,14 @@
     </div>
 
     <!-- 公众号弹窗 -->
-    <div id="generic-qr-modal" class="modal fixed inset-0 z-50 bg-black/80 backdrop-blur-md flex items-center justify-center p-4 hidden">
-        <div class="modal-content bg-[#181a1f] border border-gray-700 rounded-xl w-full max-w-xs p-5 sm:p-6 text-center">
-            <h3 id="generic-modal-title" class="text-white mb-3 sm:mb-4 font-bold">微信公众号</h3>
-            <div class="bg-white/5 p-2 rounded-lg h-48 sm:h-64 flex items-center justify-center mb-3 sm:mb-4">
+    <div id="generic-qr-modal" class="modal fixed inset-0 z-50 bg-black/80 backdrop-blur-md flex items-center justify-center p-2 sm:p-4 hidden">
+        <div class="modal-content bg-[#181a1f] border border-gray-700 rounded-xl w-full max-w-xs p-4 sm:p-6 text-center">
+            <h3 id="generic-modal-title" class="text-white mb-4 font-bold">微信公众号</h3>
+            <div class="bg-white/5 p-2 rounded-lg h-64 flex items-center justify-center mb-4">
                 <img id="generic-modal-qr-img" src="https://gitee.com/da-qiang-classmate/typora/raw/master/image/687df59c-f85e-4a5f-ab35-cf86112e87fd.webp" class="max-h-full rounded">
             </div>
             <p class="text-xs text-gray-400">扫码关注「大强同学」</p>
-            <button onclick="closeModal('generic-qr-modal')" class="mt-3 sm:mt-4 w-full bg-white/10 text-gray-300 py-2 rounded">关闭</button>
+            <button onclick="closeModal('generic-qr-modal')" class="mt-4 w-full bg-white/10 text-gray-300 py-2 rounded">关闭</button>
         </div>
     </div>
 
@@ -667,7 +730,13 @@
             if(btnObj) btnObj.classList.add('active');
             items.forEach(item => {
                 item.classList.remove('card-enter');
-                void item.offsetWidth; 
+                void item.offsetWidth;
+                // 清除搜索时可能添加的样式
+                item.style.visibility = '';
+                item.style.opacity = '';
+                item.style.position = '';
+                item.style.pointerEvents = '';
+                
                 if (type === 'all' || item.classList.contains(type)) {
                     item.style.display = 'flex';
                     item.classList.add('card-enter');
@@ -699,14 +768,6 @@
                         m.classList.add('hidden');
                     }
                 }, 300); 
-            }
-        }
-
-        // 移动端侧边栏切换
-        function toggleMobileSidebar() {
-            const sidebar = document.getElementById('mobile-sidebar');
-            if (window.innerWidth < 1024) {
-                sidebar.classList.toggle('show');
             }
         }
 
@@ -765,6 +826,404 @@
                 closeModal(event.target.id);
             }
         }
+
+        // 移动端菜单逻辑
+        const mobileMenuDrawer = document.getElementById('mobile-menu-drawer');
+        const mobileMenuOverlay = document.getElementById('mobile-menu-overlay');
+        const mobileMenuContent = document.getElementById('mobile-menu-content');
+
+        // 打开菜单
+        document.getElementById('mobile-menu-btn').onclick = function() {
+            mobileMenuDrawer.classList.remove('hidden');
+            document.body.style.overflow = 'hidden'; // 防止背景滚动
+            requestAnimationFrame(() => {
+                mobileMenuDrawer.classList.add('active');
+            });
+        };
+
+        // 关闭菜单函数
+        function closeMobileMenu() {
+            mobileMenuDrawer.classList.remove('active');
+            setTimeout(() => {
+                if (!mobileMenuDrawer.classList.contains('active')) {
+                    mobileMenuDrawer.classList.add('hidden');
+                    document.body.style.overflow = ''; // 恢复背景滚动
+                }
+            }, 300);
+        }
+
+        // 关闭按钮点击
+        document.getElementById('mobile-menu-close').onclick = closeMobileMenu;
+
+        // 点击遮罩关闭
+        mobileMenuOverlay.onclick = closeMobileMenu;
+
+        // 移动端分类筛选
+        function filterItemsMobile(type) {
+            // 同步更新桌面端按钮状态
+            const desktopBtns = document.querySelectorAll('.cat-btn');
+            const mobileBtns = document.querySelectorAll('.mobile-cat-btn');
+            
+            // 更新移动端按钮状态
+            mobileBtns.forEach(btn => btn.classList.remove('active'));
+            event.currentTarget.classList.add('active');
+            
+            // 更新桌面端按钮状态
+            desktopBtns.forEach(btn => {
+                btn.classList.remove('active');
+                if (btn.getAttribute('onclick').includes(`'${type}'`)) {
+                    btn.classList.add('active');
+                }
+            });
+            
+            // 执行筛选
+            const items = document.querySelectorAll('.product-item');
+            items.forEach(item => {
+                item.classList.remove('card-enter');
+                void item.offsetWidth;
+                // 清除搜索时可能添加的样式
+                item.style.visibility = '';
+                item.style.opacity = '';
+                item.style.position = '';
+                item.style.pointerEvents = '';
+                
+                if (type === 'all' || item.classList.contains(type)) {
+                    item.style.display = 'flex';
+                    item.classList.add('card-enter');
+                } else {
+                    item.style.display = 'none';
+                }
+            });
+            
+            // 关闭菜单并滚动到产品区域
+            closeMobileMenu();
+            setTimeout(() => {
+                document.getElementById('product-grid').scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }, 300);
+        }
+
+        // 从菜单打开微信弹窗
+        function openWxFromMenu() {
+            closeMobileMenu();
+            setTimeout(() => {
+                openModal('custom-wx-modal');
+            }, 300);
+        }
+
+        // ESC键关闭菜单
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape' && mobileMenuDrawer.classList.contains('active')) {
+                closeMobileMenu();
+            }
+        });
+
+        // ==================== 搜索功能 ====================
+        
+        // 获取所有产品数据
+        function getAllProducts() {
+            const items = document.querySelectorAll('.product-item');
+            return Array.from(items).map(item => ({
+                element: item,
+                title: item.querySelector('h3').textContent.trim(),
+                desc: item.querySelector('p').textContent.trim(),
+                price: item.querySelector('.font-bold.text-lg')?.textContent.trim() || '',
+                category: Array.from(item.classList).find(c => ['soft', 'os', 'web', 'social', 'apple', 'ai'].includes(c)) || 'all'
+            }));
+        }
+
+        // 搜索函数
+        function performSearch(keyword, isMobile = false) {
+            if (!keyword.trim()) {
+                // 空搜索时显示所有
+                resetSearch();
+                return;
+            }
+            
+            const products = getAllProducts();
+            const lowerKeyword = keyword.toLowerCase();
+            
+            const results = products.filter(product => {
+                return product.title.toLowerCase().includes(lowerKeyword) || 
+                       product.desc.toLowerCase().includes(lowerKeyword);
+            });
+            
+            if (isMobile) {
+                showMobileSearchResults(results, keyword);
+            } else {
+                showPCSearchResults(results, keyword);
+            }
+        }
+
+        // PC端搜索结果展示
+        function showPCSearchResults(results, keyword) {
+            const items = document.querySelectorAll('.product-item');
+            const grid = document.getElementById('product-grid');
+            
+            // 使用 visibility 隐藏而非 display，保持布局稳定
+            items.forEach(item => {
+                item.classList.remove('card-enter');
+                const title = item.querySelector('h3');
+                const desc = item.querySelector('p');
+                
+                // 清除之前的高亮
+                title.innerHTML = title.textContent;
+                desc.innerHTML = desc.textContent;
+                
+                const matchedProduct = results.find(r => r.element === item);
+                if (matchedProduct) {
+                    item.style.visibility = 'visible';
+                    item.style.opacity = '1';
+                    item.style.position = 'relative';
+                    item.classList.add('card-enter');
+                    // 高亮匹配文本
+                    highlightText(title, keyword);
+                    highlightText(desc, keyword);
+                } else {
+                    // 使用 visibility 和 opacity 隐藏，但保持占位
+                    item.style.visibility = 'hidden';
+                    item.style.opacity = '0';
+                    item.style.position = 'absolute';
+                    item.style.pointerEvents = 'none';
+                }
+            });
+            
+            // 更新分类按钮状态
+            document.querySelectorAll('.cat-btn').forEach(btn => btn.classList.remove('active'));
+        }
+
+        // 移动端搜索结果展示
+        function showMobileSearchResults(results, keyword) {
+            const hintDiv = document.getElementById('mobile-search-hint');
+            const listDiv = document.getElementById('mobile-search-list');
+            const emptyDiv = document.getElementById('mobile-search-empty');
+            
+            hintDiv.classList.add('hidden');
+            
+            if (results.length === 0) {
+                listDiv.classList.add('hidden');
+                emptyDiv.classList.remove('hidden');
+            } else {
+                emptyDiv.classList.add('hidden');
+                listDiv.classList.remove('hidden');
+                
+                // 生成结果列表HTML
+                listDiv.innerHTML = results.map(product => `
+                    <div class="search-result-item" onclick="goToProduct('${product.title}')">
+                        <div class="flex items-start gap-3">
+                            <div class="w-10 h-10 rounded-xl ${getCategoryColor(product.category)}/10 flex items-center justify-center ${getCategoryColor(product.category)} flex-shrink-0">
+                                ${product.element.querySelector('.rounded-xl').innerHTML}
+                            </div>
+                            <div class="flex-1 min-w-0">
+                                <h4 class="font-bold text-gray-900 text-sm mb-1">${highlightKeyword(product.title, keyword)}</h4>
+                                <p class="text-xs text-gray-500 line-clamp-2">${highlightKeyword(product.desc, keyword)}</p>
+                                <span class="text-sm font-bold text-pink-500 mt-1 inline-block">${product.price}</span>
+                            </div>
+                        </div>
+                    </div>
+                `).join('');
+            }
+        }
+
+        // 获取分类颜色
+        function getCategoryColor(category) {
+            const colors = {
+                'soft': 'text-emerald-500',
+                'os': 'text-cyan-500',
+                'web': 'text-blue-500',
+                'social': 'text-orange-500',
+                'apple': 'text-zinc-500',
+                'ai': 'text-purple-500'
+            };
+            return colors[category] || 'text-gray-500';
+        }
+
+        // 高亮关键词
+        function highlightKeyword(text, keyword) {
+            if (!keyword) return text;
+            const regex = new RegExp(`(${escapeRegex(keyword)})`, 'gi');
+            return text.replace(regex, '<span class="search-highlight">$1</span>');
+        }
+
+        // 高亮元素文本
+        function highlightText(element, keyword) {
+            if (!keyword) return;
+            const text = element.textContent;
+            const regex = new RegExp(`(${escapeRegex(keyword)})`, 'gi');
+            element.innerHTML = text.replace(regex, '<span class="search-highlight">$1</span>');
+        }
+
+        // 转义正则特殊字符
+        function escapeRegex(string) {
+            return string.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+        }
+
+        // 重置搜索
+        function resetSearch() {
+            const items = document.querySelectorAll('.product-item');
+            items.forEach(item => {
+                // 恢复所有样式
+                item.style.visibility = 'visible';
+                item.style.opacity = '1';
+                item.style.position = 'relative';
+                item.style.pointerEvents = 'auto';
+                item.classList.add('card-enter');
+                const title = item.querySelector('h3');
+                const desc = item.querySelector('p');
+                title.innerHTML = title.textContent;
+                desc.innerHTML = desc.textContent;
+            });
+            
+            // 恢复默认分类状态
+            const allBtn = document.querySelector('.cat-btn');
+            if (allBtn) {
+                document.querySelectorAll('.cat-btn').forEach(btn => btn.classList.remove('active'));
+                allBtn.classList.add('active');
+            }
+        }
+
+        // 跳转到产品（移动端搜索结果点击）
+        function goToProduct(title) {
+            closeMobileSearch();
+            
+            // 找到对应产品并滚动
+            const items = document.querySelectorAll('.product-item');
+            items.forEach(item => {
+                item.style.display = 'flex';
+                const itemTitle = item.querySelector('h3').textContent.trim();
+                if (itemTitle === title) {
+                    item.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    item.style.animation = 'none';
+                    item.offsetHeight; // 触发重绘
+                    item.style.animation = 'pulse 0.5s ease';
+                }
+            });
+        }
+
+        // PC端搜索事件
+        const searchInput = document.getElementById('search-input');
+        const clearSearchBtn = document.getElementById('clear-search');
+        
+        if (searchInput) {
+            let searchTimeout;
+            searchInput.addEventListener('input', function() {
+                clearTimeout(searchTimeout);
+                const keyword = this.value;
+                
+                // 显示/隐藏清除按钮
+                if (keyword) {
+                    clearSearchBtn.classList.remove('hidden');
+                } else {
+                    clearSearchBtn.classList.add('hidden');
+                }
+                
+                // 防抖搜索
+                searchTimeout = setTimeout(() => {
+                    performSearch(keyword, false);
+                }, 300);
+            });
+            
+            // 清除按钮
+            clearSearchBtn.addEventListener('click', function() {
+                searchInput.value = '';
+                clearSearchBtn.classList.add('hidden');
+                resetSearch();
+                searchInput.focus();
+            });
+            
+            // 回车搜索
+            searchInput.addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') {
+                    performSearch(this.value, false);
+                }
+            });
+        }
+
+        // 移动端搜索
+        const mobileSearchDrawer = document.getElementById('mobile-search-drawer');
+        const mobileSearchOverlay = document.getElementById('mobile-search-overlay');
+        const mobileSearchInput = document.getElementById('mobile-search-input');
+        const mobileClearSearchBtn = document.getElementById('mobile-clear-search');
+
+        // 打开移动端搜索
+        document.getElementById('mobile-search-btn').onclick = function() {
+            mobileSearchDrawer.classList.remove('hidden');
+            document.body.style.overflow = 'hidden';
+            requestAnimationFrame(() => {
+                mobileSearchDrawer.classList.add('active');
+                mobileSearchInput.focus();
+            });
+        };
+
+        // 关闭移动端搜索
+        function closeMobileSearch() {
+            mobileSearchDrawer.classList.remove('active');
+            setTimeout(() => {
+                if (!mobileSearchDrawer.classList.contains('active')) {
+                    mobileSearchDrawer.classList.add('hidden');
+                    document.body.style.overflow = '';
+                    // 重置搜索状态
+                    mobileSearchInput.value = '';
+                    mobileClearSearchBtn.classList.add('hidden');
+                    document.getElementById('mobile-search-hint').classList.remove('hidden');
+                    document.getElementById('mobile-search-list').classList.add('hidden');
+                    document.getElementById('mobile-search-empty').classList.add('hidden');
+                }
+            }, 300);
+        }
+
+        document.getElementById('mobile-search-close').onclick = closeMobileSearch;
+        mobileSearchOverlay.onclick = closeMobileSearch;
+
+        // 移动端搜索输入
+        if (mobileSearchInput) {
+            let mobileSearchTimeout;
+            mobileSearchInput.addEventListener('input', function() {
+                clearTimeout(mobileSearchTimeout);
+                const keyword = this.value;
+                
+                if (keyword) {
+                    mobileClearSearchBtn.classList.remove('hidden');
+                } else {
+                    mobileClearSearchBtn.classList.add('hidden');
+                    document.getElementById('mobile-search-hint').classList.remove('hidden');
+                    document.getElementById('mobile-search-list').classList.add('hidden');
+                    document.getElementById('mobile-search-empty').classList.add('hidden');
+                }
+                
+                mobileSearchTimeout = setTimeout(() => {
+                    performSearch(keyword, true);
+                }, 300);
+            });
+            
+            // 移动端清除按钮
+            mobileClearSearchBtn.addEventListener('click', function() {
+                mobileSearchInput.value = '';
+                mobileClearSearchBtn.classList.add('hidden');
+                document.getElementById('mobile-search-hint').classList.remove('hidden');
+                document.getElementById('mobile-search-list').classList.add('hidden');
+                document.getElementById('mobile-search-empty').classList.add('hidden');
+                mobileSearchInput.focus();
+            });
+        }
+
+        // ESC键关闭搜索
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                if (mobileSearchDrawer.classList.contains('active')) {
+                    closeMobileSearch();
+                }
+            }
+        });
+
+        // 添加脉冲动画样式
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes pulse {
+                0%, 100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(246, 154, 172, 0.4); }
+                50% { transform: scale(1.02); box-shadow: 0 0 0 10px rgba(246, 154, 172, 0); }
+            }
+        `;
+        document.head.appendChild(style);
     </script>
 </body>
 </html>
