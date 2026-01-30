@@ -2,7 +2,7 @@
 <html lang="zh-CN" class="scroll-smooth">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>数字工坊 | 专业数字服务矩阵</title>
     <!-- Tailwind CSS 3.4.1 -->
     <script src="https://cdn.tailwindcss.com"></script>
@@ -45,6 +45,7 @@
             -webkit-font-smoothing: antialiased;
             background-color: #F8F6F5;
             color: #010101;
+            -webkit-tap-highlight-color: transparent;
         }
 
         .bg-gradient-custom { background: linear-gradient(135deg, #F69AAC 0%, #DF95E3 50%, #7DBDE9 100%); }
@@ -76,6 +77,17 @@
             transform: translateY(-4px);
             box-shadow: 0 15px 30px -5px rgba(0,0,0,0.08);
         }
+        @media (max-width: 640px) {
+            .bento-card {
+                padding: 1rem;
+            }
+            .bento-card h3 {
+                font-size: 1rem;
+            }
+            .bento-card p {
+                font-size: 0.75rem;
+            }
+        }
 
         .cat-btn {
             font-weight: 600;
@@ -87,6 +99,12 @@
             background-color: #f3f4f6;
             color: #010101;
             font-weight: 700;
+        }
+        @media (max-width: 640px) {
+            .cat-btn {
+                padding: 0.5rem 0.75rem;
+                font-size: 0.875rem;
+            }
         }
 
         .card-enter { animation: cardFadeIn 0.3s ease-out forwards; }
@@ -142,26 +160,178 @@
         
         .sticky-sidebar { position: sticky; top: 6rem; height: fit-content; }
         #product-grid { min-height: 60vh; align-content: start; }
+        
+        /* 移动端侧边栏优化 */
+        @media (max-width: 1024px) {
+            .sticky-sidebar {
+                position: relative;
+                top: 0;
+                width: 100%;
+            }
+        }
+        
+        /* 移动端弹窗优化 */
+        @media (max-width: 640px) {
+            .neon-modal {
+                margin: 1rem;
+                max-height: 90vh;
+                overflow-y: auto;
+            }
+            .neon-modal img {
+                width: 56vw;
+                height: 56vw;
+                max-width: 240px;
+                max-height: 240px;
+            }
+        }
+        
+        /* 移动端悬浮目录按钮 */
+        .mobile-menu-fab {
+            display: none;
+        }
+        @media (max-width: 1024px) {
+            .mobile-menu-fab {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                position: fixed;
+                right: 1rem;
+                top: 1.25rem;
+                width: 32px;
+                height: 32px;
+                border-radius: 8px;
+                background: transparent;
+                box-shadow: none;
+                cursor: pointer;
+                cursor: pointer;
+                z-index: 55;
+                border: none;
+                transition: transform 0.2s ease, box-shadow 0.2s ease;
+            }
+            .mobile-menu-fab:active {
+                transform: scale(0.95);
+            }
+            .mobile-menu-fab .menu-lines {
+                display: flex;
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 0;
+            }
+            .mobile-menu-fab .menu-line {
+                display: flex;
+                align-items: center;
+                font-size: 10px;
+                line-height: 1;
+            }
+            .mobile-menu-fab .menu-dot {
+                color: #F69AAC;
+                margin-right: 2px;
+            }
+            .mobile-menu-fab .menu-bar {
+                width: 16px;
+                height: 2px;
+                background: linear-gradient(90deg, #F69AAC, #DF95E3);
+                border-radius: 1px;
+            }
+            #mobile-sidebar {
+                display: none;
+                margin-bottom: 1rem;
+            }
+            #mobile-sidebar.show {
+                display: block;
+            }
+        }
+        @media (min-width: 1024px) {
+            #mobile-sidebar {
+                display: block !important;
+            }
+            .mobile-menu-fab {
+                display: none !important;
+            }
+        }
+        
+        /* 移动端按钮优化 */
+        @media (max-width: 640px) {
+            .btn-gradient {
+                padding: 0.5rem 1rem;
+                font-size: 0.75rem;
+            }
+            .product-item .flex.items-center.justify-between {
+                flex-direction: column;
+                gap: 0.75rem;
+                align-items: flex-start;
+            }
+            .product-item .flex.items-center.justify-between span {
+                font-size: 1.125rem;
+            }
+        }
+        
+        /* 触摸优化 */
+        @media (hover: none) {
+            .bento-card:hover {
+                transform: none;
+                box-shadow: 0 2px 5px rgba(0,0,0,0.02);
+            }
+            .cat-btn:hover {
+                background-color: transparent;
+            }
+            .cat-btn.active:hover {
+                background-color: #f3f4f6;
+            }
+        }
+        
+        /* 防止移动端表单元素默认样式 */
+        input, button, select, textarea {
+            -webkit-appearance: none;
+            appearance: none;
+        }
+        
+        /* 平滑滚动 */
+        html {
+            scroll-behavior: smooth;
+        }
+        
+        /* 移动端footer优化 */
+        @media (max-width: 768px) {
+            footer .grid > div {
+                text-align: center;
+            }
+            footer h3 {
+                justify-content: center;
+            }
+            footer ul {
+                text-align: center;
+            }
+        }
     </style>
 </head>
 <body class="flex flex-col min-h-screen">
 
     <nav class="fixed top-0 w-full z-50 border-b border-gray-200/50 backdrop-blur-xl bg-[#F8F6F5]/90">
-        <div class="max-w-7xl mx-auto px-6 h-16 flex justify-between items-center">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 h-16 flex justify-between items-center">
             <div class="flex items-center space-x-3">
                 <div class="w-8 h-8 bg-gradient-custom rounded-lg flex items-center justify-center text-white shadow-lg">
                     <i class="fa-solid fa-cube text-sm"></i>
                 </div>
-                <span class="font-bold text-lg tracking-tight text-[#010101]">DIGITAL STUDIO</span>
+                <span class="font-bold text-base sm:text-lg tracking-tight text-[#010101]">DIGITAL STUDIO</span>
             </div>
         </div>
     </nav>
 
-    <main class="max-w-7xl mx-auto px-6 pt-24 pb-32 flex-grow w-full">
-        <div class="flex flex-col lg:flex-row gap-8 items-start">
+    <!-- 移动端悬浮目录按钮 -->
+    <button id="mobile-menu-fab" class="mobile-menu-fab" onclick="toggleMobileSidebar()" aria-label="展开目录">
+        <div class="menu-lines">
+            <div class="menu-line"><span class="menu-dot">·</span><span class="menu-bar"></span></div>
+            <div class="menu-line"><span class="menu-dot">·</span><span class="menu-bar"></span></div>
+            <div class="menu-line"><span class="menu-dot">·</span><span class="menu-bar"></span></div>
+        </div>
+    </button>
+
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 pt-20 sm:pt-24 pb-20 sm:pb-32 flex-grow w-full">
+        <div class="flex flex-col lg:flex-row gap-4 sm:gap-8 items-start">
             
-            <aside class="w-full lg:w-64 flex-shrink-0 animate-fade-in-up sticky-sidebar z-40" style="animation-delay: 0.1s;">
-                <div class="bg-white p-4 rounded-2xl border border-gray-100 shadow-sm">
+            <aside id="mobile-sidebar" class="w-full lg:w-64 flex-shrink-0 animate-fade-in-up sticky-sidebar z-40" style="animation-delay: 0.1s;">
+                <div class="bg-white p-3 sm:p-4 rounded-2xl border border-gray-100 shadow-sm">
                     <div id="category-list" class="space-y-1">
                         <button onclick="filterItems('all', this)" class="cat-btn active w-full flex items-center px-4 py-3 rounded-xl hover:bg-gray-50">
                             <i class="fa-solid fa-grid-2 mr-3 w-5 text-center"></i>全部项目
@@ -202,7 +372,7 @@
             </aside>
 
             <section class="flex-grow w-full animate-fade-in-up" style="animation-delay: 0.2s;">
-                <div id="product-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <div id="product-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
                     
                     <!-- 软件激活项目列表 -->
                     <div class="product-item soft bento-card p-6 rounded-3xl flex flex-col h-full">
@@ -413,8 +583,8 @@
         </div>
     </main>
 
-    <footer class="bg-[#F8F6F5] text-gray-600 border-t border-gray-200 pt-16 pb-20 font-mono">
-        <div class="max-w-7xl mx-auto px-6 grid grid-cols-1 md:grid-cols-3 gap-12">
+    <footer class="bg-[#F8F6F5] text-gray-600 border-t border-gray-200 pt-12 sm:pt-16 pb-16 sm:pb-20 font-mono">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 grid grid-cols-1 md:grid-cols-3 gap-8 sm:gap-12">
             <div class="md:pl-12 text-center md:text-left">
                 <h3 class="text-green-500 font-bold mb-4 tracking-wider text-xl flex items-center justify-center md:justify-start">
                     <span class="mr-2">&gt;</span>DIGITAL STUDIO
@@ -448,28 +618,28 @@
 
     <!-- 黑客风格博主微信弹窗 -->
     <div id="custom-wx-modal" class="modal neon-backdrop fixed inset-0 z-[60] flex items-center justify-center p-4 hidden">
-        <div class="modal-content neon-modal w-full max-w-sm p-7 flex flex-col items-center">
-            <h3 class="neon-title text-2xl font-bold mb-6 tracking-widest text-pink-500" style="text-shadow: 0 0 10px rgba(236, 72, 153, 0.5);">博主微信</h3>
-            <div class="relative z-20 mb-6 border border-white/20 p-2 rounded-2xl bg-black/20 backdrop-blur-sm">
-                <img src="https://gitee.com/da-qiang-classmate/typora/raw/master/image/e3877f44-ceca-4ded-86b5-1a0a15c7927b.webp" alt="WeChat QR" class="w-64 h-64 rounded-xl object-cover">
+        <div class="modal-content neon-modal w-full max-w-sm p-5 sm:p-7 flex flex-col items-center">
+            <h3 class="neon-title text-xl sm:text-2xl font-bold mb-4 sm:mb-6 tracking-widest text-pink-500" style="text-shadow: 0 0 10px rgba(236, 72, 153, 0.5);">博主微信</h3>
+            <div class="relative z-20 mb-4 sm:mb-6 border border-white/20 p-2 rounded-2xl bg-black/20 backdrop-blur-sm">
+                <img src="https://gitee.com/da-qiang-classmate/typora/raw/master/image/e3877f44-ceca-4ded-86b5-1a0a15c7927b.webp" alt="WeChat QR" class="w-48 h-48 sm:w-64 sm:h-64 rounded-xl object-cover">
             </div>
-            <p class="text-white/80 font-mono text-sm mb-8 relative z-20">微信号: <span id="modal-wx-id" class="text-pink-400 font-bold">dqtx33</span></p>
-            <div class="flex gap-4 w-full relative z-20">
-                <button onclick="copyModalWx(event, this)" class="flex-1 py-3 rounded-xl font-bold text-sm bg-white/10 text-white border border-white/20 hover:bg-white/20 transition-all">复制微信号</button>
-                <button onclick="closeModal('custom-wx-modal')" class="flex-1 py-3 rounded-xl font-bold text-sm bg-white/10 text-white border border-white/20 hover:bg-white/20 transition-all">关闭</button>
+            <p class="text-white/80 font-mono text-sm mb-6 sm:mb-8 relative z-20">微信号: <span id="modal-wx-id" class="text-pink-400 font-bold">dqtx33</span></p>
+            <div class="flex gap-3 sm:gap-4 w-full relative z-20">
+                <button onclick="copyModalWx(event, this)" class="flex-1 py-2.5 sm:py-3 rounded-xl font-bold text-sm bg-white/10 text-white border border-white/20 hover:bg-white/20 transition-all">复制微信号</button>
+                <button onclick="closeModal('custom-wx-modal')" class="flex-1 py-2.5 sm:py-3 rounded-xl font-bold text-sm bg-white/10 text-white border border-white/20 hover:bg-white/20 transition-all">关闭</button>
             </div>
         </div>
     </div>
 
     <!-- 打赏弹窗 -->
     <div id="donation-modal" class="modal fixed inset-0 z-50 bg-black/80 backdrop-blur-md flex items-center justify-center p-4 hidden">
-        <div class="modal-content bg-[#181a1f] border border-gray-700 rounded-xl w-full max-w-xs p-6 text-center">
-            <h3 class="text-white mb-4"><i class="fas fa-heart text-red-500 animate-pulse"></i> 感谢支持</h3>
-            <div class="flex border border-gray-700 rounded-lg mb-4 overflow-hidden">
+        <div class="modal-content bg-[#181a1f] border border-gray-700 rounded-xl w-full max-w-xs p-5 sm:p-6 text-center">
+            <h3 class="text-white mb-3 sm:mb-4"><i class="fas fa-heart text-red-500 animate-pulse"></i> 感谢支持</h3>
+            <div class="flex border border-gray-700 rounded-lg mb-3 sm:mb-4 overflow-hidden">
                 <button id="wechat-tab" class="flex-1 p-2 text-xs font-bold bg-yellow-500/10 text-yellow-400 border-r border-gray-700">微信</button>
                 <button id="alipay-tab" class="flex-1 p-2 text-xs font-bold text-gray-400 hover:bg-white/5">支付宝</button>
             </div>
-            <div class="bg-white/5 p-2 rounded-lg h-64 flex items-center justify-center mb-4">
+            <div class="bg-white/5 p-2 rounded-lg h-48 sm:h-64 flex items-center justify-center mb-3 sm:mb-4">
                 <img id="qr-code-img" src="https://gitee.com/da-qiang-classmate/typora/raw/master/image/IMG_4874.webp" class="max-h-full rounded object-contain">
             </div>
             <button onclick="closeModal('donation-modal')" class="w-full bg-white/10 text-gray-300 py-2 rounded hover:bg-white/20">关闭</button>
@@ -478,13 +648,13 @@
 
     <!-- 公众号弹窗 -->
     <div id="generic-qr-modal" class="modal fixed inset-0 z-50 bg-black/80 backdrop-blur-md flex items-center justify-center p-4 hidden">
-        <div class="modal-content bg-[#181a1f] border border-gray-700 rounded-xl w-full max-w-xs p-6 text-center">
-            <h3 id="generic-modal-title" class="text-white mb-4 font-bold">微信公众号</h3>
-            <div class="bg-white/5 p-2 rounded-lg h-64 flex items-center justify-center mb-4">
+        <div class="modal-content bg-[#181a1f] border border-gray-700 rounded-xl w-full max-w-xs p-5 sm:p-6 text-center">
+            <h3 id="generic-modal-title" class="text-white mb-3 sm:mb-4 font-bold">微信公众号</h3>
+            <div class="bg-white/5 p-2 rounded-lg h-48 sm:h-64 flex items-center justify-center mb-3 sm:mb-4">
                 <img id="generic-modal-qr-img" src="https://gitee.com/da-qiang-classmate/typora/raw/master/image/687df59c-f85e-4a5f-ab35-cf86112e87fd.webp" class="max-h-full rounded">
             </div>
             <p class="text-xs text-gray-400">扫码关注「大强同学」</p>
-            <button onclick="closeModal('generic-qr-modal')" class="mt-4 w-full bg-white/10 text-gray-300 py-2 rounded">关闭</button>
+            <button onclick="closeModal('generic-qr-modal')" class="mt-3 sm:mt-4 w-full bg-white/10 text-gray-300 py-2 rounded">关闭</button>
         </div>
     </div>
 
@@ -529,6 +699,14 @@
                         m.classList.add('hidden');
                     }
                 }, 300); 
+            }
+        }
+
+        // 移动端侧边栏切换
+        function toggleMobileSidebar() {
+            const sidebar = document.getElementById('mobile-sidebar');
+            if (window.innerWidth < 1024) {
+                sidebar.classList.toggle('show');
             }
         }
 
